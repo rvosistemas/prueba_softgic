@@ -181,3 +181,47 @@ class CotizacionObjeto(SQLModel, table=True):
     distribuidor_id: int = Field(foreign_key="distribuidor.id")
     distribuidor: Distribuidor = Relationship(back_populates="cotizaciones")
     cotizaciones: List[Cotizacion] = Relationship(back_populates="cotizacion_objeto")
+
+
+class CertificadoDetalle(SQLModel, table=True):
+    id: Optional[uuid.UUID] = Field(default_factory=uuid.uuid4, primary_key=True)
+    tipo: str
+    tipo_identificacion: str
+    numero_identificacion: str
+    nombre: str
+    sexo: str
+    etiqueta_adicional1: Optional[str] = None
+    data_adicional1: Optional[str] = None
+    etiqueta_adicional2: Optional[str] = None
+    data_adicional2: Optional[str] = None
+    etiqueta_adicional3: Optional[str] = None
+    data_adicional3: Optional[str] = None
+    emision_id: Optional[uuid.UUID] = Field(default=None, foreign_key="emision.id")
+    emision: "Emision" = Relationship(back_populates="certificados")
+
+
+class AseguradosAdicionales(SQLModel, table=True):
+    id: Optional[uuid.UUID] = Field(default_factory=uuid.uuid4, primary_key=True)
+    parentesco: str
+    tipo_identificacion: str
+    numero_identificacion: str
+    nombre: str
+    fecha_nacimiento: Optional[str] = None
+    sexo: Optional[str] = None
+    edad: Optional[int] = None
+    emision_id: Optional[uuid.UUID] = Field(default=None, foreign_key="emision.id")
+    emision: "Emision" = Relationship(back_populates="asegurados_adicionales")
+
+
+class Emision(SQLModel, table=True):
+    id: Optional[uuid.UUID] = Field(default_factory=uuid.uuid4, primary_key=True)
+    id_convenio: uuid.UUID
+    suc_clave: str
+    suc_nombre: str
+    distribuidor_clave: str
+    distribuidor_nombre: str
+    distribuidor_email: str
+    certificados: List[CertificadoDetalle] = Relationship(back_populates="emision")
+    asegurados_adicionales: List[AseguradosAdicionales] = Relationship(
+        back_populates="emision"
+    )

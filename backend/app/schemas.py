@@ -110,3 +110,72 @@ class CotizacionResponse(BaseModel):
     response_body: CotizacionObjetoRead
     message_error: Optional[str] = None
     es_dato_valido: bool
+
+
+class CertificadoDetalle(BaseModel):
+    tipo: str
+    tipoIdentificacion: str
+    numeroIdentificacion: str
+    nombre: str
+    sexo: str
+    etiquetaAdicional1: Optional[str] = None
+    dataAdicional1: Optional[str] = None
+    etiquetaAdicional2: Optional[str] = None
+    dataAdicional2: Optional[str] = None
+    etiquetaAdicional3: Optional[str] = None
+    dataAdicional3: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+
+
+class AseguradosAdicionales(BaseModel):
+    parentesco: str
+    tipoIdentificacion: str
+    numeroIdentificacion: str
+    nombre: str
+    fechaNacimiento: Optional[str]
+    sexo: Optional[str]
+    edad: Optional[int]
+
+
+class EmisionRequest(BaseModel):
+    idConvenio: UUID
+    sucClave: str
+    sucNombre: str
+    distribuidorClave: str
+    distribuidorNombre: str
+    distribuidorEmail: str
+    certificados: List[CertificadoDetalle]
+    aseguradosAdicionales: Optional[List[AseguradosAdicionales]]
+
+
+class CoberturaResponse(BaseModel):
+    primaNeta: float
+    ivaTotal: float
+    primaTotal: float
+
+
+class CertificadoResponse(BaseModel):
+    identificador: str
+    primaNeta: float
+    ivaTotal: float
+    primaTotal: float
+    vigenciaInicial: str
+    vigenciaFinal: str
+    planCertificado: str
+    paquete: str
+    coberturas: List[CoberturaResponse]
+
+
+class EmisionResponse(BaseModel):
+    identificador: str
+    mensajeError: Optional[str]
+    confirmacionEmitida: Optional[str]
+    idConvenio: UUID
+    sucClave: str
+    sucNombre: str
+    distribuidorClave: str
+    distribuidorNombre: str
+    distribuidorEmail: str
+    certificados: List[CertificadoResponse]
