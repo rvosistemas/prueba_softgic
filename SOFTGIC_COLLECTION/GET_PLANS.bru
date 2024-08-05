@@ -1,0 +1,15 @@
+meta {
+  name: GET_PLANS
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost/api/v1/plans/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

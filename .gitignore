@@ -4,3 +4,9 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# virtual enviroment
+.venv_*
+
+# enviroment variables
+.env
