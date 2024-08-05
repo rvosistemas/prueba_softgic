@@ -1,0 +1,53 @@
+meta {
+  name: DELETE_PLANS
+  type: http
+  seq: 9
+}
+
+delete {
+  url: http://localhost/api/v1/plans/d28da1cd-8072-4997-9a0c-eae7e889ac24
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "idConvenio": "28b6c9e8-35db-428f-8f53-0d35101ae037",
+    "sucClave": "25148",
+    "sucNombre": "ION Toluca",
+    "distribuidorClave": "124587",
+    "distribuidorNombre": "ION",
+    "distribuidorEmail": "ventas@ion.com",
+    "certificados": [
+      {
+        "tipo": "P",
+        "tipoIdentificacion": "Número de certificado",
+        "numeroIdentificacion": "C-203004034",
+        "nombre": "MARCO ANTONIO REYES NAVA 6",
+        "sexo": "M",
+        "etiquetaAdicional1": "etiquetaAdicional1",
+        "dataAdicional1": "dataAdicional1",
+        "etiquetaAdicional2": "etiquetaAdicional2",
+        "dataAdicional2": "dataAdicional2",
+        "etiquetaAdicional3": "etiquetaAdicional3",
+        "dataAdicional3": "dataAdicional3"
+      }
+    ],
+    "aseguradosAdicionales": [
+      {
+        "parentesco": "HERMANO",
+        "tipoIdentificacion": "PASAPORTE",
+        "numeroIdentificacion": "AB27321",
+        "nombre": "MARCO ANTONIO REYES NAVA",
+        "fechaNacimiento": "1979-08-06",
+        "sexo": "M",
+        "edad": 43
+      }
+    ]
+  }
+  
+}
