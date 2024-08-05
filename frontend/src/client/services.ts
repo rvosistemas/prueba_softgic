@@ -18,6 +18,10 @@ import type {
   UserUpdate,
   UserUpdateMe,
   UsersPublic,
+  PlanCreate,
+  PlanPublic,
+  PlanUpdate,
+  QuotePublic,
 } from "./models"
 
 export type TDataLoginAccessToken = {
@@ -513,5 +517,150 @@ export class ItemsService {
         422: "Validation Error",
       },
     })
+  }
+}
+
+export type TDataReadPlans = {
+  limit?: number
+  skip?: number
+}
+
+export type TDataCreatePlan = {
+  requestBody: PlanCreate
+}
+
+export type TDataUpdatePlan = {
+  id: string
+  requestBody: PlanUpdate
+}
+
+export type TDataDeletePlan = {
+  id: string
+}
+
+export class PlansService {
+  /**
+   * Read Plans
+   * Retrieve plans.
+   * @returns PlanPublic[] Successful Response
+   * @throws ApiError
+   */
+  public static readPlans(
+    data: TDataReadPlans = {},
+  ): CancelablePromise<PlanPublic[]> {
+    const { limit = 100, skip = 0 } = data
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/plans/",
+      query: {
+        skip,
+        limit,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Create Plan
+   * Create new plan.
+   * @returns PlanPublic Successful Response
+   * @throws ApiError
+   */
+  public static createPlan(
+    data: TDataCreatePlan,
+  ): CancelablePromise<PlanPublic> {
+    const { requestBody } = data
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/plans/",
+      body: {
+        ...requestBody,
+        activo: true,
+      },
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Update Plan
+   * Update a plan.
+   * @returns PlanPublic Successful Response
+   * @throws ApiError
+   */
+  public static updatePlan(
+    data: TDataUpdatePlan,
+  ): CancelablePromise<PlanPublic> {
+    const { id, requestBody } = data
+    return __request(OpenAPI, {
+      method: "PUT",
+      url: "/api/v1/plans/{id}",
+      path: {
+        id,
+      },
+      body: {
+        ...requestBody,
+        activo: true,
+      },
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Delete Plan
+   * Delete a plan.
+   * @returns PlanPublic Successful Response
+   * @throws ApiError
+   */
+  public static deletePlan(
+    data: TDataDeletePlan,
+  ): CancelablePromise<PlanPublic> {
+    const { id } = data
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/v1/plans/{id}",
+      path: {
+        id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class QuotesService {
+  public static getQuotes({
+    page,
+    limit,
+    sortColumn,
+    sortOrder,
+    filters,
+  }: {
+    page: number;
+    limit: number;
+    sortColumn: string;
+    sortOrder: string;
+    filters: { amount: string; date: string };
+  }): CancelablePromise<QuotePublic[]> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/cotizaciones',
+      query: {
+        page,
+        limit,
+        sortColumn,
+        sortOrder,
+        amount: filters.amount,
+        date: filters.date,
+      },
+    });
   }
 }

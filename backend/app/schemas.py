@@ -81,18 +81,9 @@ class DetSolicitudRead(BaseModel):
 class CotizacionRead(BaseModel):
     id: str
     plan_comercial: str
-    prima_neta: float
-    iva_notal: float
-    prima_total: float
-    det_solicitudes: List[DetSolicitudRead]
-
-
-class CotizacionRead(BaseModel):
-    id: str
-    plan_comercial: str
-    prima_neta: float
-    iva_notal: float
-    prima_total: float
+    prima_neta: float = 0.0  # Valor predeterminado
+    iva_notal: float = 0.0  # Valor predeterminado
+    prima_total: float = 0.0  # Valor predeterminado
     det_solicitudes: List[DetSolicitudRead]
 
 
@@ -196,3 +187,8 @@ class PlanUpdate(BaseModel):
 
 class PlanRead(PlanBase):
     id: UUID
+
+
+class PaginationParams(BaseModel):
+    page: int = 1
+    limit: int = 10

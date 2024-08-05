@@ -97,3 +97,75 @@ export type ValidationError = {
   msg: string
   type: string
 }
+
+
+export type PlanCreate = {
+  nombre: string
+  descripcion?: string | null
+  activo: boolean
+}
+
+export type PlanUpdate = {
+  nombre?: string | null
+  descripcion?: string | null
+  activo?: boolean
+}
+
+export type PlanPublic = {
+  id: string
+  nombre: string
+  descripcion?: string | null
+  activo: boolean
+}
+
+export type PlansPublic = {
+  data: Array<PlanPublic>
+  count: number
+}
+
+
+export type DetSolicitud = {
+  id: string;
+  plan: string;
+  renovacion: number;
+  tipo: string;
+  paquete: string;
+  fecha_nacimiento: string | null;
+  ini_vig_reportada: string;
+  fin_vig_reportada: string | null;
+  plazo_reportado: number;
+  tipo_vig: number;
+  sum_aseg_4: number;
+  sum_aseg_5: number | null;
+  sum_aseg_6: number | null;
+  coberturas: Array<any>;
+};
+
+export type Cotizacion = {
+  id: string;
+  plan_comercial: string;
+  prima_neta: number;
+  iva_notal: number;
+  prima_total: number;
+  det_solicitudes: Array<DetSolicitud>;
+};
+
+export type QuotePublic = {
+  id: string;
+  response_body: {
+    id_convenio: string;
+    suc_clave: string;
+    suc_nombre: string;
+    distribuidor_clave: string;
+    distribuidor_nombre: string;
+    distribuidor_email: string;
+    cotizaciones: Cotizacion[];
+  };
+  message_error: string | null;
+  es_dato_valido: boolean;
+};
+
+export type QuotesPublic = {
+  data: Array<QuotePublic>;
+  hasNextPage: boolean;
+};
