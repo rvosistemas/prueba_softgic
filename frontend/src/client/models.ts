@@ -109,11 +109,13 @@ export type PlanPublic = {
   id: string
   nombre: string
   descripcion?: string | null
+  activo: boolean
 }
 
 export type PlanUpdate = {
   nombre?: string | null
   descripcion?: string | null
+  activo?: boolean
 }
 
 export type PlansPublic = {

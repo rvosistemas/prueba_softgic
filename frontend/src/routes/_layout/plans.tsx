@@ -84,7 +84,7 @@ function PlansTable() {
                     {isPending ? (
                         <Tbody>
                             <Tr>
-                                {Array.from({ length: 4 }).map((_, index) => (
+                                {new Array(4).fill(null).map((_, index) => (
                                     <Td key={index}>
                                         <SkeletonText noOfLines={1} paddingBlock="16px" />
                                     </Td>

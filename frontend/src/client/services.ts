@@ -601,7 +601,10 @@ export class PlansService {
       path: {
         id,
       },
-      body: requestBody,
+      body: {
+        ...requestBody,
+        activo: true,
+      },
       mediaType: "application/json",
       errors: {
         422: "Validation Error",
