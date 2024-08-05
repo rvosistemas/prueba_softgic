@@ -23,10 +23,21 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> $GITHUB_ENV
-          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> $GITHUB_ENV
-          echo "POSTGRES_DOCKER_PORT=${{ secrets.POSTGRES_DOCKER_PORT }}" >> $GITHUB_ENV
+          echo "BACKEND_CORS_ORIGINS=${{ secrets.BACKEND_CORS_ORIGINS }}" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_BACKEND=${{ secrets.DOCKER_IMAGE_BACKEND }}" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_FRONTEND=${{ secrets.DOCKER_IMAGE_FRONTEND }}" >> $GITHUB_ENV
           echo "DOMAIN=${{ secrets.DOMAIN }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ secrets.ENVIRONMENT }}" >> $GITHUB_ENV
+          echo "FIRST_SUPERUSER=${{ secrets.FIRST_SUPERUSER }}" >> $GITHUB_ENV
+          echo "FIRST_SUPERUSER_PASSWORD=${{ secrets.FIRST_SUPERUSER_PASSWORD }}" >> $GITHUB_ENV
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> $GITHUB_ENV
+          echo "POSTGRES_DOCKER_PORT=${{ secrets.POSTGRES_DOCKER_PORT }}" >> $GITHUB_ENV
+          echo "POSTGRES_LOCAL=${{ secrets.POSTGRES_LOCAL }}" >> $GITHUB_ENV
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> $GITHUB_ENV
+          echo "POSTGRES_SERVER=${{ secrets.POSTGRES_SERVER }}" >> $GITHUB_ENV
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> $GITHUB_ENV
+          echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" >> $GITHUB_ENV
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
           echo "STACK_NAME=${{ secrets.STACK_NAME }}" >> $GITHUB_ENV
 
       - run: docker compose build
