@@ -1,0 +1,43 @@
+meta {
+  name: POST_ACCESS_TOKEN
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost/api/v1/login/access-token
+  body: formUrlEncoded
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "username": "admin@example.com",
+    "password": "changethis"
+  }
+}
+
+body:form-urlencoded {
+  username: %7B%7Busername%7D%7D
+  password: %7B%7Bpassword%7D%7D
+}
+
+tests {
+  test("get and save access token", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  
+    // Obtener el token de acceso del cuerpo de la respuesta
+    const accessToken = data.access_token;
+    expect(accessToken).to.be.a('string');
+    console.log("accessToken -> "+accessToken)
+    // Guardar el token en la variable de entorno
+    bru.setEnvVar("access_token", accessToken);
+    console.log("Token de acceso guardado en la variable de entorno.");
+  });
+  
+}

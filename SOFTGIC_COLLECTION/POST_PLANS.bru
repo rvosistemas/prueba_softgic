@@ -1,0 +1,23 @@
+meta {
+  name: POST_PLANS
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost/api/v1/plans/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+      "nombre": "Plan Premium 2",
+      "descripcion": "Este es un plan premium con todas las características avanzadas 2",
+      "activo": true
+  }
+}

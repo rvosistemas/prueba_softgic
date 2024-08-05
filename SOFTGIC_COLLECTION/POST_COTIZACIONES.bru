@@ -1,0 +1,54 @@
+meta {
+  name: POST_COTIZACIONES
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost/api/v1/cotizaciones/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "id_convenio": "28b6c9e8-35db-428f-8f53-0d35101ae037",
+    "suc_clave": "25148",
+    "suc_nombre": "ION Toluca",
+    "distribuidor_clave": "124587",
+    "distribuidor_nombre": "ION",
+    "distribuidor_email": "ventas@ion.com",
+    "cotizaciones": [
+      {
+        "plan_comercial": "Cotización 1",
+        "det_solicitudes": [
+          {
+            "plan": "2208",
+            "renovacion": 0,
+            "tipo": "P",
+            "paquete": "1",
+            "fecha_nacimiento": "2000-02-01",
+            "ini_vig_reportada": "2023-05-15",
+            "fin_vig_reportada": "2024-05-15",
+            "plazo_reportado": 1,
+            "tipo_vig": 1,
+            "sum_aseg_4": 300000,
+            "sum_aseg_5": 0,
+            "sum_aseg_6": 0,
+            "coberturas_prima_neta": [
+              {
+                "clave_cobertura": "BSC.MTE",
+                "prima": 1000.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
+}
