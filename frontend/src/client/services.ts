@@ -21,6 +21,7 @@ import type {
   PlanCreate,
   PlanPublic,
   PlanUpdate,
+  QuotePublic,
 } from "./models"
 
 export type TDataLoginAccessToken = {
@@ -632,5 +633,34 @@ export class PlansService {
         422: "Validation Error",
       },
     })
+  }
+}
+
+export class QuotesService {
+  public static getQuotes({
+    page,
+    limit,
+    sortColumn,
+    sortOrder,
+    filters,
+  }: {
+    page: number;
+    limit: number;
+    sortColumn: string;
+    sortOrder: string;
+    filters: { amount: string; date: string };
+  }): CancelablePromise<QuotePublic[]> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/cotizaciones',
+      query: {
+        page,
+        limit,
+        sortColumn,
+        sortOrder,
+        amount: filters.amount,
+        date: filters.date,
+      },
+    });
   }
 }

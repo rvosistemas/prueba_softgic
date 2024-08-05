@@ -105,6 +105,12 @@ export type PlanCreate = {
   activo: boolean
 }
 
+export type PlanUpdate = {
+  nombre?: string | null
+  descripcion?: string | null
+  activo?: boolean
+}
+
 export type PlanPublic = {
   id: string
   nombre: string
@@ -112,13 +118,55 @@ export type PlanPublic = {
   activo: boolean
 }
 
-export type PlanUpdate = {
-  nombre?: string | null
-  descripcion?: string | null
-  activo?: boolean
-}
-
 export type PlansPublic = {
   data: Array<PlanPublic>
   count: number
 }
+
+
+export type DetSolicitud = {
+  id: string;
+  plan: string;
+  renovacion: number;
+  tipo: string;
+  paquete: string;
+  fecha_nacimiento: string | null;
+  ini_vig_reportada: string;
+  fin_vig_reportada: string | null;
+  plazo_reportado: number;
+  tipo_vig: number;
+  sum_aseg_4: number;
+  sum_aseg_5: number | null;
+  sum_aseg_6: number | null;
+  coberturas: Array<any>;
+};
+
+export type Cotizacion = {
+  id: string;
+  plan_comercial: string;
+  prima_neta: number;
+  iva_notal: number;
+  prima_total: number;
+  det_solicitudes: Array<DetSolicitud>;
+};
+
+export type QuotePublic = {
+  id: string;
+  response_body: {
+    cotizaciones: {
+      id: string;
+      det_solicitudes: {
+        sum_aseg_4: number;
+        ini_vig_reportada: string;
+      }[];
+    }[];
+  };
+  message_error: string | null;
+  es_dato_valido: boolean;
+  hasNextPage: boolean;
+};
+
+export type QuotesPublic = {
+  data: Array<QuotePublic>;
+  hasNextPage: boolean;
+};
