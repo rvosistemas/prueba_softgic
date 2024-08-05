@@ -51,10 +51,7 @@ function PlansTable() {
         placeholderData: (prevData) => prevData,
     });
 
-    console.log("Full plansData - :", plansData);
-
     const plans = plansData;
-    console.log("Extracted plans - :", plans);
 
     const hasNextPage = !isPlaceholderData && plans?.length === PER_PAGE;
     const hasPreviousPage = page > 1;
