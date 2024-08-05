@@ -4,7 +4,16 @@ from typing import Any
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Item, ItemCreate, User, UserCreate, UserUpdate
+from app.models import (
+    Item,
+    ItemCreate,
+    User,
+    UserCreate,
+    UserUpdate,
+    Plan,
+    PlanCreate,
+    PlanUpdate,
+)
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
@@ -52,3 +61,41 @@ def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -
     session.commit()
     session.refresh(db_item)
     return db_item
+
+
+def get_plan(db: Session, plan_id: uuid.UUID):
+    return db.get(Plan, plan_id)
+
+
+def get_plans(db: Session, skip: int = 0, limit: int = 10):
+    return db.exec(select(Plan).offset(skip).limit(limit)).all()
+
+
+def create_plan(db: Session, plan_in: PlanCreate):
+    db_plan = Plan.model_validate(plan_in)
+    db.add(db_plan)
+    db.commit()
+    db.refresh(db_plan)
+    return db_plan
+
+
+def update_plan(db: Session, plan_id: uuid.UUID, plan_in: PlanUpdate):
+    db_plan = get_plan(db, plan_id)
+    if not db_plan:
+        return None
+    plan_data = plan_in.model_dump(exclude_unset=True)
+    for key, value in plan_data.items():
+        setattr(db_plan, key, value)
+    db.add(db_plan)
+    db.commit()
+    db.refresh(db_plan)
+    return db_plan
+
+
+def delete_plan(db: Session, plan_id: uuid.UUID):
+    db_plan = get_plan(db, plan_id)
+    if not db_plan:
+        return None
+    db.delete(db_plan)
+    db.commit()
+    return db_plan

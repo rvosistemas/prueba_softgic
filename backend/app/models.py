@@ -225,3 +225,21 @@ class Emision(SQLModel, table=True):
     asegurados_adicionales: List[AseguradosAdicionales] = Relationship(
         back_populates="emision"
     )
+
+
+class Plan(SQLModel, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    nombre: str
+    descripcion: str
+    activo: bool = True
+
+
+class PlanCreate(SQLModel):
+    nombre: str
+    descripcion: str
+
+
+class PlanUpdate(SQLModel):
+    nombre: str | None = None
+    descripcion: str | None = None
+    activo: bool | None = None

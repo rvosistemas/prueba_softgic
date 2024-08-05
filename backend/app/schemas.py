@@ -125,9 +125,6 @@ class CertificadoDetalle(BaseModel):
     etiquetaAdicional3: Optional[str] = None
     dataAdicional3: Optional[str] = None
 
-    class Config:
-        orm_mode = True
-
 
 class AseguradosAdicionales(BaseModel):
     parentesco: str
@@ -179,3 +176,23 @@ class EmisionResponse(BaseModel):
     distribuidorNombre: str
     distribuidorEmail: str
     certificados: List[CertificadoResponse]
+
+
+class PlanBase(BaseModel):
+    nombre: str
+    descripcion: str
+    activo: bool
+
+
+class PlanCreate(PlanBase):
+    pass
+
+
+class PlanUpdate(BaseModel):
+    nombre: Optional[str]
+    descripcion: Optional[str]
+    activo: Optional[bool]
+
+
+class PlanRead(PlanBase):
+    id: UUID

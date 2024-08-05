@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.routes import items, login, users, utils, cotizaciones, emision
+from app.api.routes import items, login, users, utils, cotizaciones, emision, plans
 
 api_router = APIRouter()
 api_router.include_router(login.router, tags=["login"])
@@ -11,3 +11,4 @@ api_router.include_router(
     cotizaciones.router, prefix="/cotizaciones", tags=["cotizaciones"]
 )
 api_router.include_router(emision.router, prefix="/emision", tags=["emision"])
+api_router.include_router(plans.router, prefix="/plans", tags=["plans"])
