@@ -78,12 +78,14 @@ function QuotesTable() {
                             <Th>ID</Th>
                             <Th>Amount</Th>
                             <Th>Date</Th>
+                            <Th>Sucursal</Th>
+                            <Th>Distribuidor</Th>
                         </Tr>
                     </Thead>
                     {isPending ? (
                         <Tbody>
                             <Tr>
-                                {new Array(3).fill(null).map((_, index) => (
+                                {new Array(5).fill(null).map((_, index) => (
                                     <Td key={index}>
                                         <SkeletonText noOfLines={1} paddingBlock="16px" />
                                     </Td>
@@ -97,6 +99,8 @@ function QuotesTable() {
                                     <Td>{quote.response_body.cotizaciones[0].id}</Td>
                                     <Td>{quote.response_body.cotizaciones[0].det_solicitudes[0].sum_aseg_4}</Td>
                                     <Td>{quote.response_body.cotizaciones[0].det_solicitudes[0].ini_vig_reportada}</Td>
+                                    <Td>{quote.response_body.suc_nombre}</Td>
+                                    <Td>{quote.response_body.distribuidor_nombre}</Td>
                                 </Tr>
                             ))}
                         </Tbody>

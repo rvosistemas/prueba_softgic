@@ -153,17 +153,16 @@ export type Cotizacion = {
 export type QuotePublic = {
   id: string;
   response_body: {
-    cotizaciones: {
-      id: string;
-      det_solicitudes: {
-        sum_aseg_4: number;
-        ini_vig_reportada: string;
-      }[];
-    }[];
+    id_convenio: string;
+    suc_clave: string;
+    suc_nombre: string;
+    distribuidor_clave: string;
+    distribuidor_nombre: string;
+    distribuidor_email: string;
+    cotizaciones: Cotizacion[];
   };
   message_error: string | null;
   es_dato_valido: boolean;
-  hasNextPage: boolean;
 };
 
 export type QuotesPublic = {
