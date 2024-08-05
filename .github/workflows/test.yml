@@ -39,6 +39,11 @@ jobs:
           echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" >> $GITHUB_ENV
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
           echo "STACK_NAME=${{ secrets.STACK_NAME }}" >> $GITHUB_ENV
+          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> $GITHUB_ENV
+          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> $GITHUB_ENV
+          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> $GITHUB_ENV
+          echo "EMAILS_FROM_EMAIL=${{ secrets.EMAILS_FROM_EMAIL }}" >> $GITHUB_ENV
+          echo "SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
 
       - run: docker compose build
       - run: docker compose down -v --remove-orphans
