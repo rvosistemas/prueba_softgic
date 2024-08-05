@@ -79,11 +79,17 @@ function QuotesTable() {
     const sortedQuotes = useMemo(() => {
         const sorted = [...filteredQuotes];
         sorted.sort((a, b) => {
-            const aValue = a.response_body.cotizaciones[0] as unknown as Record<string, any>;
-            const bValue = b.response_body.cotizaciones[0] as unknown as Record<string, any>;
-            if (aValue[sortColumn] < bValue[sortColumn]) return sortOrder === 'asc' ? -1 : 1;
-            if (aValue[sortColumn] > bValue[sortColumn]) return sortOrder === 'asc' ? 1 : -1;
-            return 0;
+            const aValue = a.response_body.cotizaciones[0].det_solicitudes[0] as unknown as Record<string, any>;
+            const bValue = b.response_body.cotizaciones[0].det_solicitudes[0] as unknown as Record<string, any>;
+
+            let comparison = 0;
+            if (sortColumn === 'suc_nombre' || sortColumn === 'distribuidor_nombre') {
+                comparison = a.response_body[sortColumn].localeCompare(b.response_body[sortColumn]);
+            } else {
+                comparison = aValue[sortColumn] < bValue[sortColumn] ? -1 : aValue[sortColumn] > bValue[sortColumn] ? 1 : 0;
+            }
+
+            return sortOrder === 'asc' ? comparison : -comparison;
         });
         return sorted;
     }, [filteredQuotes, sortColumn, sortOrder]);
@@ -116,11 +122,11 @@ function QuotesTable() {
                 <Table size={{ base: "sm", md: "md" }}>
                     <Thead>
                         <Tr>
-                            <Th onClick={() => handleSort('id')}>ID</Th>
-                            <Th onClick={() => handleSort('sum_aseg_4')}>Amount</Th>
-                            <Th onClick={() => handleSort('ini_vig_reportada')}>Date</Th>
-                            <Th>Sucursal</Th>
-                            <Th>Distribuidor</Th>
+                            <Th cursor="pointer" onClick={() => handleSort('id')}>ID</Th>
+                            <Th cursor="pointer" onClick={() => handleSort('sum_aseg_4')}>Amount</Th>
+                            <Th cursor="pointer" onClick={() => handleSort('ini_vig_reportada')}>Date</Th>
+                            <Th cursor="pointer" onClick={() => handleSort('suc_nombre')}>Sucursal</Th>
+                            <Th cursor="pointer" onClick={() => handleSort('distribuidor_nombre')}>Distribuidor</Th>
                         </Tr>
                     </Thead>
                     {isPending ? (
